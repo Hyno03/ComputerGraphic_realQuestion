@@ -1,0 +1,151 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\jenny\\source\\repos\\Project1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A3E896DD-336D-418B-8FC1-D97ADEE0CE12}|Project1\\Project1.vcxproj|C:\\Users\\jenny\\source\\repos\\Project1\\Project1\\question7.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A3E896DD-336D-418B-8FC1-D97ADEE0CE12}|Project1\\Project1.vcxproj|solutionrelative:Project1\\question7.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A3E896DD-336D-418B-8FC1-D97ADEE0CE12}|Project1\\Project1.vcxproj|C:\\Users\\jenny\\source\\repos\\Project1\\Project1\\question4.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A3E896DD-336D-418B-8FC1-D97ADEE0CE12}|Project1\\Project1.vcxproj|solutionrelative:Project1\\question4.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A3E896DD-336D-418B-8FC1-D97ADEE0CE12}|Project1\\Project1.vcxproj|C:\\Users\\jenny\\source\\repos\\Project1\\Project1\\question6.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A3E896DD-336D-418B-8FC1-D97ADEE0CE12}|Project1\\Project1.vcxproj|solutionrelative:Project1\\question6.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A3E896DD-336D-418B-8FC1-D97ADEE0CE12}|Project1\\Project1.vcxproj|C:\\Users\\jenny\\source\\repos\\Project1\\Project1\\question5.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A3E896DD-336D-418B-8FC1-D97ADEE0CE12}|Project1\\Project1.vcxproj|solutionrelative:Project1\\question5.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A3E896DD-336D-418B-8FC1-D97ADEE0CE12}|Project1\\Project1.vcxproj|C:\\Users\\jenny\\source\\repos\\Project1\\Project1\\question3.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A3E896DD-336D-418B-8FC1-D97ADEE0CE12}|Project1\\Project1.vcxproj|solutionrelative:Project1\\question3.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A3E896DD-336D-418B-8FC1-D97ADEE0CE12}|Project1\\Project1.vcxproj|C:\\Users\\jenny\\source\\repos\\Project1\\Project1\\test.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A3E896DD-336D-418B-8FC1-D97ADEE0CE12}|Project1\\Project1.vcxproj|solutionrelative:Project1\\test.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A3E896DD-336D-418B-8FC1-D97ADEE0CE12}|Project1\\Project1.vcxproj|C:\\Users\\jenny\\source\\repos\\Project1\\Project1\\question1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A3E896DD-336D-418B-8FC1-D97ADEE0CE12}|Project1\\Project1.vcxproj|solutionrelative:Project1\\question1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A3E896DD-336D-418B-8FC1-D97ADEE0CE12}|Project1\\Project1.vcxproj|C:\\Users\\jenny\\source\\repos\\Project1\\Project1\\question2.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A3E896DD-336D-418B-8FC1-D97ADEE0CE12}|Project1\\Project1.vcxproj|solutionrelative:Project1\\question2.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "question7.cpp",
+              "DocumentMoniker": "C:\\Users\\jenny\\source\\repos\\Project1\\Project1\\question7.cpp",
+              "RelativeDocumentMoniker": "Project1\\question7.cpp",
+              "ToolTip": "C:\\Users\\jenny\\source\\repos\\Project1\\Project1\\question7.cpp",
+              "RelativeToolTip": "Project1\\question7.cpp",
+              "ViewState": "AgIAANMAAAAAAAAAAAAswCUBAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-10-06T15:28:44.649Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "question6.cpp",
+              "DocumentMoniker": "C:\\Users\\jenny\\source\\repos\\Project1\\Project1\\question6.cpp",
+              "RelativeDocumentMoniker": "Project1\\question6.cpp",
+              "ToolTip": "C:\\Users\\jenny\\source\\repos\\Project1\\Project1\\question6.cpp",
+              "RelativeToolTip": "Project1\\question6.cpp",
+              "ViewState": "AgIAAMgAAAAAAAAAAAAiwC0BAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-10-03T09:26:41.748Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "question5.cpp",
+              "DocumentMoniker": "C:\\Users\\jenny\\source\\repos\\Project1\\Project1\\question5.cpp",
+              "RelativeDocumentMoniker": "Project1\\question5.cpp",
+              "ToolTip": "C:\\Users\\jenny\\source\\repos\\Project1\\Project1\\question5.cpp",
+              "RelativeToolTip": "Project1\\question5.cpp",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAADoAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-10-03T08:55:22.377Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "question4.cpp",
+              "DocumentMoniker": "C:\\Users\\jenny\\source\\repos\\Project1\\Project1\\question4.cpp",
+              "RelativeDocumentMoniker": "Project1\\question4.cpp",
+              "ToolTip": "C:\\Users\\jenny\\source\\repos\\Project1\\Project1\\question4.cpp",
+              "RelativeToolTip": "Project1\\question4.cpp",
+              "ViewState": "AgIAALQAAAAAAAAAAAAQwN8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-10-02T12:15:02.734Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "question3.cpp",
+              "DocumentMoniker": "C:\\Users\\jenny\\source\\repos\\Project1\\Project1\\question3.cpp",
+              "RelativeDocumentMoniker": "Project1\\question3.cpp",
+              "ToolTip": "C:\\Users\\jenny\\source\\repos\\Project1\\Project1\\question3.cpp",
+              "RelativeToolTip": "Project1\\question3.cpp",
+              "ViewState": "AgIAAI0AAAAAAAAAAAAiwKQAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-10-02T11:44:46.512Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "question2.cpp",
+              "DocumentMoniker": "C:\\Users\\jenny\\source\\repos\\Project1\\Project1\\question2.cpp",
+              "RelativeDocumentMoniker": "Project1\\question2.cpp",
+              "ToolTip": "C:\\Users\\jenny\\source\\repos\\Project1\\Project1\\question2.cpp",
+              "RelativeToolTip": "Project1\\question2.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-10-01T12:05:16.037Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "question1.cpp",
+              "DocumentMoniker": "C:\\Users\\jenny\\source\\repos\\Project1\\Project1\\question1.cpp",
+              "RelativeDocumentMoniker": "Project1\\question1.cpp",
+              "ToolTip": "C:\\Users\\jenny\\source\\repos\\Project1\\Project1\\question1.cpp",
+              "RelativeToolTip": "Project1\\question1.cpp",
+              "ViewState": "AgIAAFEAAAAAAAAAAAAiwHsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-10-01T06:07:39.716Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "test.cpp",
+              "DocumentMoniker": "C:\\Users\\jenny\\source\\repos\\Project1\\Project1\\test.cpp",
+              "RelativeDocumentMoniker": "Project1\\test.cpp",
+              "ToolTip": "C:\\Users\\jenny\\source\\repos\\Project1\\Project1\\test.cpp",
+              "RelativeToolTip": "Project1\\test.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACYAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-09-30T01:01:23.066Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
