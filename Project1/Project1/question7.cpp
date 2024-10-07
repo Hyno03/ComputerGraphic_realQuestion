@@ -130,18 +130,24 @@ GLvoid drawScene()
         // 사각형 내부 색상
         glColor3f(bigsquare.r, bigsquare.g, bigsquare.b);
         glBegin(GL_QUADS);
+        glVertex2f(bigsquare.x2, bigsquare.y1);
         glVertex2f(bigsquare.x1, bigsquare.y1);
         glVertex2f(bigsquare.x1, bigsquare.y2);
-        glVertex2f(bigsquare.x2, bigsquare.y1);
         glVertex2f(bigsquare.x2, bigsquare.y2);
         glEnd();
 
         // 사각형 테두리 색상
         glColor3f(0.0f, 0.0f, 0.0f); // 검은색 테두리
-        glBegin(GL_LINE_LOOP); // 선으로 테두리 그리기
-        glVertex2f(bigsquare.x1, bigsquare.y1);
+        glBegin(GL_LINE_LOOP); // 테두리 그리기
+        glVertex2f(bigsquare.x2, bigsquare.y2);
         glVertex2f(bigsquare.x1, bigsquare.y2);
+        glVertex2f(bigsquare.x1, bigsquare.y1);
         glVertex2f(bigsquare.x2, bigsquare.y1);
+        glEnd();
+
+        // 대각선 그리기
+        glBegin(GL_LINES);
+        glVertex2f(bigsquare.x1, bigsquare.y1); // 좌상단에서 우하단으로
         glVertex2f(bigsquare.x2, bigsquare.y2);
         glEnd();
     }
@@ -277,8 +283,8 @@ void keyboard(unsigned char key, int x, int y)
         break;
     case 'w':
         // 랜덤하게 도형 하나 선택하여 위로 이동
-        if (!squares.empty() || !lines.empty() || !triangles.empty()) {
-            int totalShapes = squares.size() + lines.size() + triangles.size();
+        if (!squares.empty() || !lines.empty() || !triangles.empty() || !bigSquares.empty()) {
+            int totalShapes = squares.size() + lines.size() + triangles.size() + bigSquares.size();
             int randomIndex = rand() % totalShapes; // 랜덤 인덱스 생성
 
             if (randomIndex < squares.size()) {
@@ -291,19 +297,25 @@ void keyboard(unsigned char key, int x, int y)
                 lines[lineIndex].y1 += 10; // 선의 시작점 위로 10만큼 이동
                 lines[lineIndex].y2 += 10; // 선의 끝점 위로 10만큼 이동
             }
-            else {
+            else if (randomIndex < squares.size() + lines.size() + triangles.size()) {
                 // 삼각형을 선택한 경우 
                 int triangleIndex = randomIndex - squares.size() - lines.size();
                 triangles[triangleIndex].y1 += 10; // 삼각형의 첫 번째 점 위로 10만큼 이동
                 triangles[triangleIndex].y2 += 10; // 삼각형의 두 번째 점 위로 10만큼 이동
                 triangles[triangleIndex].y3 += 10; // 삼각형의 세 번째 점 위로 10만큼 이동
             }
+            else
+            {
+                int squareBoxIndex = randomIndex - squares.size() - lines.size() - triangles.size();
+                bigSquares[squareBoxIndex].y1 += 10;
+                bigSquares[squareBoxIndex].y2 += 10;
+            }
         }
         break;
     case 'a':
         // 랜덤하게 도형 하나 선택하여 위로 이동
-        if (!squares.empty() || !lines.empty() || !triangles.empty()) {
-            int totalShapes = squares.size() + lines.size() + triangles.size();
+        if (!squares.empty() || !lines.empty() || !triangles.empty() || !bigSquares.empty()) {
+            int totalShapes = squares.size() + lines.size() + triangles.size() + bigSquares.size();
             int randomIndex = rand() % totalShapes; // 랜덤 인덱스 생성
 
             if (randomIndex < squares.size()) {
@@ -316,19 +328,25 @@ void keyboard(unsigned char key, int x, int y)
                 lines[lineIndex].x1 -= 10; // 선의 시작점 위로 10만큼 이동
                 lines[lineIndex].x2 -= 10; // 선의 끝점 위로 10만큼 이동
             }
-            else {
+            else if (randomIndex < squares.size() + lines.size() + triangles.size()) {
                 // 삼각형을 선택한 경우
                 int triangleIndex = randomIndex - squares.size() - lines.size();
                 triangles[triangleIndex].x1 -= 10; // 삼각형의 첫 번째 점 위로 10만큼 이동
                 triangles[triangleIndex].x2 -= 10; // 삼각형의 두 번째 점 위로 10만큼 이동
                 triangles[triangleIndex].x3 -= 10; // 삼각형의 세 번째 점 위로 10만큼 이동
             }
+            else
+            {
+                int squareBoxIndex = randomIndex - squares.size() - lines.size() - triangles.size();
+                bigSquares[squareBoxIndex].x1 -= 10;
+                bigSquares[squareBoxIndex].x2 -= 10;
+            }
         }
         break;
     case 's':
         // 랜덤하게 도형 하나 선택하여 위로 이동
-        if (!squares.empty() || !lines.empty() || !triangles.empty()) {
-            int totalShapes = squares.size() + lines.size() + triangles.size();
+        if (!squares.empty() || !lines.empty() || !triangles.empty() || !bigSquares.empty()) {
+            int totalShapes = squares.size() + lines.size() + triangles.size() + bigSquares.size();
             int randomIndex = rand() % totalShapes; // 랜덤 인덱스 생성
 
             if (randomIndex < squares.size()) {
@@ -358,8 +376,8 @@ void keyboard(unsigned char key, int x, int y)
         break;
     case 'd':
         // 랜덤하게 도형 하나 선택하여 위로 이동
-        if (!squares.empty() || !lines.empty() || !triangles.empty()) {
-            int totalShapes = squares.size() + lines.size() + triangles.size();
+        if (!squares.empty() || !lines.empty() || !triangles.empty() || !bigSquares.empty()) {
+            int totalShapes = squares.size() + lines.size() + triangles.size() + bigSquares.size();
             int randomIndex = rand() % totalShapes; // 랜덤 인덱스 생성
 
             if (randomIndex < squares.size()) {
@@ -372,12 +390,18 @@ void keyboard(unsigned char key, int x, int y)
                 lines[lineIndex].x1 += 10; // 선의 시작점 위로 10만큼 이동
                 lines[lineIndex].x2 += 10; // 선의 끝점 위로 10만큼 이동
             }
-            else {
+            else if (randomIndex < squares.size() + lines.size() + triangles.size()) {
                 // 삼각형을 선택한 경우 
                 int triangleIndex = randomIndex - squares.size() - lines.size();
                 triangles[triangleIndex].x1 += 10; // 삼각형의 첫 번째 점 위로 10만큼 이동
                 triangles[triangleIndex].x2 += 10; // 삼각형의 두 번째 점 위로 10만큼 이동
                 triangles[triangleIndex].x3 += 10; // 삼각형의 세 번째 점 위로 10만큼 이동
+            }
+            else
+            {
+                int squareBoxIndex = randomIndex - squares.size() - lines.size() - triangles.size();
+                bigSquares[squareBoxIndex].x1 += 10;
+                bigSquares[squareBoxIndex].x2 += 10;
             }
         }
         break;
