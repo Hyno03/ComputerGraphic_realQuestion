@@ -52,8 +52,24 @@
 //
 //// 사각형 합치기 함수
 //void mergeRects(Rect& a, Rect& b) {
-//    a.width *= 1.25f;
-//    a.height *= 1.25f;
+//    if (b.x > a.x)
+//    {
+//        a.width = (b.x + b.width / 2) - (a.x - a.width / 2);
+//    }
+//    else if (a.x > b.x)
+//    {
+//        a.width = (a.x + a.width / 2) - (b.x - b.width / 2);
+//    }
+//
+//    if (b.y > a.y)
+//    {
+//        a.height = (b.y + b.height / 2) - (a.y - a.height / 2);
+//    }
+//    else if (a.y > b.y)
+//    {
+//        a.height = (a.y + a.height / 2) - (b.y - b.height / 2);
+//    }
+//    
 //    setRandomColor(a.r, a.g, a.b); // 색상 변경
 //    b = rects[--numRects]; // 배열에서 b를 제거
 //}

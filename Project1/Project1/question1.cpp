@@ -2,15 +2,15 @@
 //#include <gl/glew.h>
 //#include <gl/freeglut.h>
 //#include <gl/freeglut_ext.h>
-//#include <cstdlib> // for rand()
+//#include <cstdlib>
 //
 //GLvoid drawScene(GLvoid);
 //GLvoid Reshape(int w, int h);
 //GLvoid Keyboard(unsigned char key, int x, int y);
 //GLvoid Timer(int value);
 //
-//bool timerEnabled = false; // 타이머 활성화 여부
-//float bgColor[4] = { 0.0f, 0.0f, 1.0f, 1.0f }; // 기본 배경색 (파랑)
+//bool timerEnabled = false;
+//float bgColor[4] = { 0.0f, 0.0f, 1.0f, 1.0f };
 //
 //void setRandomColor() {
 //	bgColor[0] = static_cast<float>(rand()) / RAND_MAX;

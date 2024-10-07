@@ -27,6 +27,7 @@
 //
 //GLvoid drawScene(GLvoid);
 //GLvoid Reshape(int w, int h);
+//GLvoid Timer(int value);
 //void mouseClick(int button, int state, int x, int y);
 //void keyboard(unsigned char key, int x, int y);
 //void update(int value);
@@ -128,7 +129,8 @@
 //        isChangingSize = !isChangingSize; // 크기 변화 상태 토글
 //        break;
 //    case'4':
-//        isColorChange = true;
+//        isColorChange = !isColorChange;
+//        glutTimerFunc(500, Timer, 0);
 //        break;
 //    case's':
 //        isMoving = false;
@@ -153,9 +155,25 @@
 //    }
 //}
 //
+//GLvoid Timer(int value)
+//{
+//    if (isColorChange)
+//    {
+//        for (auto& square : squares)
+//        {
+//            square.r = static_cast<float>(rand()) / RAND_MAX; // 랜덤 색상 생성
+//            square.g = static_cast<float>(rand()) / RAND_MAX;
+//            square.b = static_cast<float>(rand()) / RAND_MAX;
+//            glutPostRedisplay();
+//            glutTimerFunc(500, Timer, 0);
+//        }
+//    }
+//   
+//}
+//
 //void update(int value)
 //{
-//    if (isMoving || isZigzag || isChangingSize || isColorChange)
+//    if (isMoving || isZigzag || isChangingSize)
 //    {
 //        for (auto& square : squares)
 //        {
@@ -209,14 +227,7 @@
 //                    square.heightChangeRate = 0.1f;  // 방향 반전
 //                }
 //            }
-//            if (isColorChange)
-//            {
-//                square.r = static_cast<float>(rand()) / RAND_MAX; // 랜덤 색상 생성
-//                square.g = static_cast<float>(rand()) / RAND_MAX;
-//                square.b = static_cast<float>(rand()) / RAND_MAX;
-//            }
 //        }
-//        isColorChange = false;
 //    }
 //    glutPostRedisplay(); // 화면 재출력
 //    glutTimerFunc(16, update, 0); // 16ms 후에 다시 호출

@@ -21,9 +21,16 @@ struct Triangle {
     float r, g, b;                // 색상
 };
 
+struct BigSquare
+{
+    float x1, y1,x2,y2;
+    float r, g, b; // 색상
+};
+
 std::vector<Square> squares;    // 사각형을 저장할 벡터
 std::vector<Line> lines;        // 선을 저장할 벡터
 std::vector<Triangle> triangles; // 삼각형을 저장할 벡터
+std::vector<BigSquare> bigSquares;
 
 bool isPointMode = false;       // 점 생성 모드 상태
 bool isLineMode = false;        // 선 그리기 모드 상태
@@ -119,6 +126,26 @@ GLvoid drawScene()
         glEnd();
     }
 
+    for (const auto& bigsquare : bigSquares) {
+        // 사각형 내부 색상
+        glColor3f(bigsquare.r, bigsquare.g, bigsquare.b);
+        glBegin(GL_QUADS);
+        glVertex2f(bigsquare.x1, bigsquare.y1);
+        glVertex2f(bigsquare.x1, bigsquare.y2);
+        glVertex2f(bigsquare.x2, bigsquare.y1);
+        glVertex2f(bigsquare.x2, bigsquare.y2);
+        glEnd();
+
+        // 사각형 테두리 색상
+        glColor3f(0.0f, 0.0f, 0.0f); // 검은색 테두리
+        glBegin(GL_LINE_LOOP); // 선으로 테두리 그리기
+        glVertex2f(bigsquare.x1, bigsquare.y1);
+        glVertex2f(bigsquare.x1, bigsquare.y2);
+        glVertex2f(bigsquare.x2, bigsquare.y1);
+        glVertex2f(bigsquare.x2, bigsquare.y2);
+        glEnd();
+    }
+
     glutSwapBuffers(); // 화면에 출력하기
 }
 
@@ -131,14 +158,13 @@ GLvoid Reshape(int w, int h)
     glMatrixMode(GL_MODELVIEW); // 모델 뷰 행렬 모드로 전환
 }
 
-int squaresCount = 0;
 void mouseClick(int button, int state, int x, int y)
 {
     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
         int windowHeight = glutGet(GLUT_WINDOW_HEIGHT);
         int transformedY = windowHeight - y; // 윈도우 좌표계를 OpenGL 좌표계로 변환
 
-        int totalShapes = squares.size() + lines.size() + (triangles.size() - squaresCount*2) + squaresCount;
+        int totalShapes = squares.size() + lines.size() + triangles.size() + bigSquares.size();
 
         if (totalShapes < 10) {
             if (isPointMode) {
@@ -195,28 +221,20 @@ void mouseClick(int button, int state, int x, int y)
             }
             if (isSquareMode) {
                 // 랜덤 크기와 색상으로 사각형을 그리기
-                Triangle triangle1, triangle2; // 두 개의 삼각형으로 사각형을 구성
-                triangle1.r = static_cast<float>(rand()) / RAND_MAX;
-                triangle1.g = static_cast<float>(rand()) / RAND_MAX;
-                triangle1.b = static_cast<float>(rand()) / RAND_MAX;
-                triangle2.r = triangle1.r;
-                triangle2.g = triangle1.g;
-                triangle2.b = triangle1.b;
-                float size = 30.0f + static_cast<float>(rand() % 50); // 30 ~ 80 크기의 사각형
+                BigSquare newSquare;
 
-                // 클릭한 위치를 기준으로 사각형의 두 삼각형 설정
-                triangle1.x1 = x - size / 2;       triangle1.y1 = transformedY + size / 2; // 왼쪽 위
-                triangle1.x2 = x + size / 2;       triangle1.y2 = transformedY + size / 2; // 오른쪽 위
-                triangle1.x3 = x - size / 2;       triangle1.y3 = transformedY - size / 2; // 왼쪽 아래
+                float size = 30.0f + static_cast<float>(rand() % 50);
 
-                triangle2.x1 = x + size / 2;       triangle2.y1 = transformedY + size / 2; // 오른쪽 위
-                triangle2.x2 = x + size / 2;       triangle2.y2 = transformedY - size / 2; // 오른쪽 아래
-                triangle2.x3 = x - size / 2;       triangle2.y3 = transformedY - size / 2; // 왼쪽 아래
+                newSquare.x1 = x + size / 2;
+                newSquare.y1 = transformedY;
+                newSquare.x2 = x - size / 2;
+                newSquare.y2 = transformedY + size / 2;
 
-                triangles.push_back(triangle1); // 첫 번째 삼각형 추가
-                triangles.push_back(triangle2); // 두 번째 삼각형 추가
-                
-                squaresCount += 1;
+                newSquare.r = static_cast<float>(rand()) / RAND_MAX;
+                newSquare.g = static_cast<float>(rand()) / RAND_MAX;
+                newSquare.b = static_cast<float>(rand()) / RAND_MAX;
+                bigSquares.push_back(newSquare);
+
             }
         }
         glutPostRedisplay();
@@ -274,7 +292,7 @@ void keyboard(unsigned char key, int x, int y)
                 lines[lineIndex].y2 += 10; // 선의 끝점 위로 10만큼 이동
             }
             else {
-                // 삼각형을 선택한 경우
+                // 삼각형을 선택한 경우 
                 int triangleIndex = randomIndex - squares.size() - lines.size();
                 triangles[triangleIndex].y1 += 10; // 삼각형의 첫 번째 점 위로 10만큼 이동
                 triangles[triangleIndex].y2 += 10; // 삼각형의 두 번째 점 위로 10만큼 이동
@@ -323,12 +341,18 @@ void keyboard(unsigned char key, int x, int y)
                 lines[lineIndex].y1 -= 10; // 선의 시작점 위로 10만큼 이동
                 lines[lineIndex].y2 -= 10; // 선의 끝점 위로 10만큼 이동
             }
-            else {
+            else if(randomIndex < squares.size() + lines.size() + triangles.size()){
                 // 삼각형을 선택한 경우
                 int triangleIndex = randomIndex - squares.size() - lines.size();
                 triangles[triangleIndex].y1 -= 10; // 삼각형의 첫 번째 점 위로 10만큼 이동
                 triangles[triangleIndex].y2 -= 10; // 삼각형의 두 번째 점 위로 10만큼 이동
                 triangles[triangleIndex].y3 -= 10; // 삼각형의 세 번째 점 위로 10만큼 이동
+            }
+            else
+            {
+                int squareBoxIndex = randomIndex - squares.size() - lines.size() - triangles.size();
+                bigSquares[squareBoxIndex].y1 -= 10;
+                bigSquares[squareBoxIndex].y2 -= 10;
             }
         }
         break;
@@ -349,7 +373,7 @@ void keyboard(unsigned char key, int x, int y)
                 lines[lineIndex].x2 += 10; // 선의 끝점 위로 10만큼 이동
             }
             else {
-                // 삼각형을 선택한 경우
+                // 삼각형을 선택한 경우 
                 int triangleIndex = randomIndex - squares.size() - lines.size();
                 triangles[triangleIndex].x1 += 10; // 삼각형의 첫 번째 점 위로 10만큼 이동
                 triangles[triangleIndex].x2 += 10; // 삼각형의 두 번째 점 위로 10만큼 이동
