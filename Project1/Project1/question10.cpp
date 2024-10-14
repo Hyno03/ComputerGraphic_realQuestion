@@ -221,7 +221,12 @@
 //    }
 //    else if (key == 'p' || key == 'P') // Toggle drawing as points
 //    {
-//        drawAsPoints = !drawAsPoints;
+//        drawAsPoints = true;
+//        glutPostRedisplay();
+//    }
+//    else if (key == 'l' || key == 'L') // Toggle drawing as line
+//    {
+//        drawAsPoints = false;
 //        glutPostRedisplay();
 //    }
 //}
