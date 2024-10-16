@@ -131,6 +131,7 @@
     <ClCompile Include="question1.cpp" />
     <ClCompile Include="question10.cpp" />
     <ClCompile Include="question11.cpp" />
+    <ClCompile Include="question12.cpp" />
     <ClCompile Include="question2.cpp" />
     <ClCompile Include="question3.cpp" />
     <ClCompile Include="question4.cpp" />
