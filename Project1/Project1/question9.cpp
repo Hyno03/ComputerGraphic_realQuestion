@@ -262,17 +262,11 @@
 //
 //void keyboardInput(unsigned char key, int x, int y)
 //{
-//    if (key == 'a') {
-//        currentFillMode = true;  // 'a'를 누르면 채워진 삼각형 모드
-//    }
-//    else if (key == 'b') {
-//        currentFillMode = false; // 'b'를 누르면 테두리만 있는 삼각형 모드
-//    }
-//    else if (key == '1') {
+//    if (key == '1') {
 //        isMoving = !isMoving;  // '1'을 누르면 삼각형들이 움직이기 시작
 //    }
 //    else if (key == '2') {
-//        isZigzagging = true;  // '2'를 누르면 지그재그 모드 활성화
+//        isZigzagging = !isZigzagging;  // '2'를 누르면 지그재그 모드 활성화
 //    }
 //    else if (key == '3') {
 //        isSpiraling = !isSpiraling;   // '3'을 누르면 스파이럴 모드 활성화
@@ -290,12 +284,7 @@
 //{
 //    glColor3f(triangle.color[0], triangle.color[1], triangle.color[2]);
 //
-//    if (triangle.isFilled) {
-//        glBegin(GL_TRIANGLES); // 면이 채워진 삼각형
-//    }
-//    else {
-//        glBegin(GL_LINE_LOOP); // 테두리만 있는 삼각형
-//    }
+//    glBegin(GL_TRIANGLES); // 면이 채워진 삼각형
 //
 //    glVertex2f(triangle.vertices[0], triangle.vertices[1]);
 //    glVertex2f(triangle.vertices[2], triangle.vertices[3]);

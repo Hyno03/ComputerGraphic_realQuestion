@@ -142,7 +142,7 @@
 //{
 //    glColor3f(triangle.color[0], triangle.color[1], triangle.color[2]);
 //
-//    if (triangle.isFilled) {
+//    if (currentFillMode) {
 //        glBegin(GL_TRIANGLES); // 면이 채워진 삼각형
 //    }
 //    else {
@@ -152,6 +152,7 @@
 //    glVertex2f(triangle.vertices[0], triangle.vertices[1]);
 //    glVertex2f(triangle.vertices[2], triangle.vertices[3]);
 //    glVertex2f(triangle.vertices[4], triangle.vertices[5]);
+//    glutPostRedisplay();
 //    glEnd();
 //}
 //

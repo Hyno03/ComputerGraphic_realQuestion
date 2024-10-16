@@ -1,34 +1,6 @@
-﻿  question12.cpp
-C:\Users\jenny\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question12.cpp(129,24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\jenny\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question12.cpp(130,24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\jenny\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question12.cpp(138,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\jenny\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question12.cpp(139,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\jenny\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question12.cpp(140,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\jenny\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question12.cpp(141,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\jenny\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question12.cpp(149,24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\jenny\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question12.cpp(150,24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\jenny\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question12.cpp(161,24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\jenny\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question12.cpp(162,24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\jenny\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question12.cpp(181,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\jenny\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question12.cpp(182,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\jenny\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question12.cpp(255,37): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\jenny\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question12.cpp(265,37): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\jenny\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question12.cpp(278,37): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\jenny\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question12.cpp(291,37): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\jenny\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question12.cpp(310,37): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\jenny\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question12.cpp(344,29): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\jenny\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question12.cpp(354,29): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\jenny\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question12.cpp(364,29): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\jenny\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question12.cpp(419,94): error C2572: 'isPointInCircle': redefinition of default argument: parameter 1
-      C:\Users\jenny\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question12.cpp(35,6):
-      see declaration of 'isPointInCircle'
-  
-C:\Users\jenny\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question12.cpp(419,6): error C2084: function 'bool isPointInCircle(float,float,const std::pair<float,float> &,float)' already has a body
-      C:\Users\jenny\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question12.cpp(35,6):
-      see previous definition of 'isPointInCircle'
-  
-C:\Users\jenny\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question12.cpp(436,6): error C2084: function 'void mergeShapes(int,int)' already has a body
-      C:\Users\jenny\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question12.cpp(90,6):
-      see previous definition of 'mergeShapes'
-  
-C:\Users\jenny\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question12.cpp(451,5): error C3861: 'initShapes': identifier not found
+﻿  question10.cpp
+  question11.cpp
+C:\Users\user\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question11.cpp(167,30): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\user\Documents\GitHub\ComputerGraphic_realQuestion\Project1\Project1\question11.cpp(171,16): warning C4244: '인수': 'int'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...
+  Project1.vcxproj -> C:\Users\user\Documents\GitHub\ComputerGraphic_realQuestion\Project1\x64\Debug\Project1.exe
