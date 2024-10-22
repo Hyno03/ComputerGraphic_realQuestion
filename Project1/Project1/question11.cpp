@@ -1,265 +1,212 @@
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
-#include <vector>
-#include <algorithm> 
-#include <gl/glew.h>
-#include <gl/freeglut.h>
-#include <gl/freeglut_ext.h>
-
-enum Shape { LINE, TRIANGLE, RECTANGLE, PENTAGON };
-
-struct DrawableShape {
-    float x, y;  // 도형의 위치
-    Shape shapeType;  // 도형의 종류
-    bool isAnimating;  // 애니메이션 진행 여부
-    float animationProgress; // 애니메이션 진행 정도 (0.0f ~ 1.0f)
-};
-
-std::vector<DrawableShape> shapes;  // 화면에 그려진 모든 도형을 저장하는 벡터
-bool currentFillMode = true;  // 채우기 여부 (true: 채워진 도형, false: 테두리만 그리기)
-
-GLvoid drawScene(GLvoid);
-GLvoid Reshape(int w, int h);
-void keyboardInput(unsigned char key, int x, int y);
-void drawGrid(int width, int height);
-void drawShape(const DrawableShape& shape);
-void drawLine(float x, float y, float progress);
-void drawTriangle(float x, float y, float progress); // Progress 추가
-void drawRectangle(float x, float y, float progress);
-void drawPentagon(float x, float y, float progress);
-void animateShapes();  // 애니메이션 진행 함수
-
-int main(int argc, char** argv)
-{
-    srand(static_cast<unsigned int>(time(0)));
-
-    glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
-    glutInitWindowPosition(100, 100);
-    glutInitWindowSize(800, 600);
-    glutCreateWindow("Shape Transformation Example");
-    glewExperimental = GL_TRUE;
-
-    if (glewInit() != GLEW_OK)
-    {
-        std::cerr << "Unable to initialize GLEW" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-    else
-        std::cout << "GLEW Initialized\n";
-
-    // 초기 도형들
-    shapes.push_back({ 600, 450, LINE, false, 0.0f });
-    shapes.push_back({ 200, 450, TRIANGLE, false, 1.0f });
-    shapes.push_back({ 200, 150, RECTANGLE, false, 1.0f });
-    shapes.push_back({ 600, 150, PENTAGON, false, 1.0f });
-
-    glutDisplayFunc(drawScene);
-    glutReshapeFunc(Reshape);
-    glutKeyboardFunc(keyboardInput);
-    glutIdleFunc(animateShapes);  // 애니메이션 업데이트를 위해 Idle 함수 설정
-    glutMainLoop();
-
-    return 0;
-}
-
-GLvoid drawScene()
-{
-    glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
-
-    drawGrid(800, 600);  // 화면 분할용 그리드
-
-    // 저장된 모든 도형 그리기
-    for (const auto& shape : shapes) {
-        drawShape(shape);
-    }
-
-    glutSwapBuffers();
-}
-
-GLvoid Reshape(int w, int h)
-{
-    glViewport(0, 0, w, h);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(0, w, 0, h, -1, 1);
-    glMatrixMode(GL_MODELVIEW);
-}
-
-void keyboardInput(unsigned char key, int x, int y)
-{
-    if (key == 'l') {
-        // 모든 선(LINE)을 삼각형(TRIANGLE)으로 변경
-        for (auto& shape : shapes) {
-            if (shape.shapeType == LINE) {
-                shape.shapeType = TRIANGLE;
-                shape.isAnimating = true;  // 애니메이션 시작
-                shape.animationProgress = 0.0f; // 애니메이션 초기화
-            }
-        }
-    }
-    else if (key == 't') {
-        // 모든 삼각형(TRIANGLE)을 사각형(RECTANGLE)으로 변경
-        for (auto& shape : shapes) {
-            if (shape.shapeType == TRIANGLE) {
-                shape.shapeType = RECTANGLE;
-                shape.isAnimating = true;  // 애니메이션 시작
-                shape.animationProgress = 0.0f; // 애니메이션 초기화
-            }
-        }
-    }
-    else if (key == 'r') {
-        // 모든 사각형(RECTANGLE)을 오각형(PENTAGON)으로 변경
-        for (auto& shape : shapes) {
-            if (shape.shapeType == RECTANGLE) {
-                shape.shapeType = PENTAGON;
-                shape.isAnimating = true;  // 애니메이션 시작
-                shape.animationProgress = 0.0f; // 애니메이션 초기화
-            }
-        }
-    }
-    else if (key == 'p') {
-        // 모든 오각형(PENTAGON)을 선(LINE)으로 변경
-        for (auto& shape : shapes) {
-            if (shape.shapeType == PENTAGON) {
-                shape.shapeType = LINE;
-                shape.isAnimating = true;  // 애니메이션 시작
-                shape.animationProgress = 0.0f; // 애니메이션 초기화
-            }
-        }
-    }
-    else if (key == 'a') {
-        // 'a' 키를 누르면 도형을 초기 상태로 재설정
-        shapes.clear();  // 기존 도형 삭제
-        // 초기 도형 추가
-        shapes.push_back({ 600, 450, LINE, false, 0.0f });
-        shapes.push_back({ 200, 450, TRIANGLE, false, 1.0f });
-        shapes.push_back({ 200, 150, RECTANGLE, false, 1.0f });
-        shapes.push_back({ 600, 150, PENTAGON, false, 1.0f });
-    }
-
-    glutPostRedisplay();  // 화면 다시 그리기
-}
-
-void animateShapes() {
-    for (auto& shape : shapes) {
-        if (shape.isAnimating) {
-            shape.animationProgress += 0.01f;  // 진행 정도 증가
-            if (shape.animationProgress >= 1.0f) {
-                shape.animationProgress = 1.0f;  // 최대값으로 고정
-                shape.isAnimating = false;  // 애니메이션 멈춤
-            }
-        }
-    }
-    glutPostRedisplay();  // 화면 다시 그리기
-}
-
-
-void drawGrid(int width, int height)
-{
-    glColor3f(0.0f, 0.0f, 0.0f);
-    glBegin(GL_LINES);
-
-    // Vertical line
-    glVertex2f(width / 2.0f, 0);
-    glVertex2f(width / 2.0f, height);
-
-    // Horizontal line
-    glVertex2f(0, height / 2.0f);
-    glVertex2f(width, height / 2.0f);
-
-    glEnd();
-}
-
-void drawShape(const DrawableShape& shape)
-{
-    switch (shape.shapeType) {
-    case LINE:
-        drawLine(shape.x, shape.y, shape.animationProgress);
-        break;
-    case TRIANGLE:
-        drawTriangle(shape.x, shape.y, shape.animationProgress);  // Progress 전달
-        break;
-    case RECTANGLE:
-        drawRectangle(shape.x, shape.y, shape.animationProgress); // Progress 전달
-        break;
-    case PENTAGON:
-        drawPentagon(shape.x, shape.y, shape.animationProgress);
-        break;
-    }
-}
-
-void drawLine(float x, float y, float progress) {
-    glColor3f(1.0f, 0.0f, 0.0f);
-    if (progress < 1.0f) {
-        // Draw a line
-        glBegin(GL_LINES);
-        glVertex2f(x - 50, y);
-        glVertex2f(x + 50, y);
-        glEnd();
-    }
-    else {
-        // Draw a triangle when fully animated
-        drawTriangle(x, y, 1.0f);  // Fully formed triangle
-    }
-}
-
-void drawTriangle(float x, float y, float progress) {
-    glColor3f(0.0f, 1.0f, 0.0f);
-    if (currentFillMode)
-        glBegin(GL_TRIANGLES);
-    else
-        glBegin(GL_LINE_LOOP);
-
-    // 삼각형의 높이를 애니메이션 진행 정도에 따라 조절
-    glVertex2f(x, y + 50 * progress);          // 꼭짓점 A
-    glVertex2f(x - 50 * progress, y - 50);     // 꼭짓점 B
-    glVertex2f(x + 50 * progress, y - 50);     // 꼭짓점 C
-
-    glEnd();
-}
-
-void drawRectangle(float x, float y, float progress) {
-    glColor3f(0.0f, 0.0f, 1.0f);
-    if (currentFillMode)
-        glBegin(GL_QUADS);
-    else
-        glBegin(GL_LINE_LOOP);
-
-    // 사각형의 크기를 애니메이션 진행 정도에 따라 조절
-    float width = 100 * progress;  // 애니메이션에 따라 width 조절
-    float height = 100 * progress; // 애니메이션에 따라 height 조절
-
-    glVertex2f(x - width / 2, y + height / 2);
-    glVertex2f(x + width / 2, y + height / 2);
-    glVertex2f(x + width / 2, y - height / 2);
-    glVertex2f(x - width / 2, y - height / 2);
-
-    glEnd();
-}
-
-void drawPentagon(float x, float y, float progress)
-{
-    glColor3f(1.0f, 1.0f, 0.0f);
-    const float radius = 50.0f * progress;  // Scale radius based on progress
-    const int numSides = 5;
-    float angle = 2.0f * 3.1415926f / numSides;
-
-    if (currentFillMode)
-        glBegin(GL_POLYGON);
-    else
-        glBegin(GL_LINE_LOOP);
-
-    float startAngle = 3.1415926f / 2.0f;
-
-    for (int i = 0; i < numSides; ++i) {
-        float dx = radius * cosf(startAngle + i * angle);
-        float dy = radius * sinf(startAngle + i * angle);
-        glVertex2f(x + dx, y + dy);
-    }
-
-    glEnd();
-}
-
+//#include <iostream>
+//#include <vector>
+//#include <gl/glew.h>
+//#include <gl/freeglut.h>
+//
+//// 셰이더 소스 코드 (유니폼 사용)
+//const char* vertexShaderSource = R"(
+//#version 330 core
+//layout(location = 0) in vec2 position;
+//
+//void main()
+//{
+//    gl_Position = vec4(position, 0.0, 1.0);
+//}
+//)";
+//
+//const char* fragmentShaderSource = R"(
+//#version 330 core
+//uniform vec3 shapeColor; // 유니폼 변수로 색상 입력 받음
+//out vec4 color;
+//
+//void main()
+//{
+//    color = vec4(shapeColor, 1.0); // 유니폼 색상 사용
+//}
+//)";
+//
+//GLuint shaderProgram;
+//GLuint colorLocation;
+//
+//// 도형 종류
+//enum Shape { LINE, TRIANGLE, RECTANGLE, PENTAGON };
+//
+//// 각 사분면의 도형을 저장할 배열 (0: 1사분면, 1: 2사분면, 2: 3사분면, 3: 4사분면)
+//Shape shapes[4] = { LINE, TRIANGLE, RECTANGLE, PENTAGON };  // 각 사분면에 초기 도형 설정
+//
+//// 각 사분면의 애니메이션 상태 변수
+//float shapeSizes[4] = { 0.1f, 0.1f, 0.1f, 0.1f }; // 초기 도형 크기 (작은 크기에서 시작)
+//bool animating[4] = { false, false, false, false }; // 각 사분면의 애니메이션 상태
+//float animSpeeds[4] = { 0.005f, 0.005f, 0.005f, 0.005f }; // 각 사분면의 애니메이션 속도
+//float targetSize = 0.1f; // 도형이 도달할 최종 크기
+//
+//// 셰이더 초기화 함수
+//void initShaders() {
+//    // Vertex Shader 생성
+//    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+//    glShaderSource(vertexShader, 1, &vertexShaderSource, nullptr);
+//    glCompileShader(vertexShader);
+//
+//    // Fragment Shader 생성
+//    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+//    glShaderSource(fragmentShader, 1, &fragmentShaderSource, nullptr);
+//    glCompileShader(fragmentShader);
+//
+//    // Shader Program 생성
+//    shaderProgram = glCreateProgram();
+//    glAttachShader(shaderProgram, vertexShader);
+//    glAttachShader(shaderProgram, fragmentShader);
+//    glLinkProgram(shaderProgram);
+//
+//    // Shader 삭제
+//    glDeleteShader(vertexShader);
+//    glDeleteShader(fragmentShader);
+//
+//    // 유니폼 변수의 위치를 찾음
+//    colorLocation = glGetUniformLocation(shaderProgram, "shapeColor");
+//}
+//
+//// 십자선 그리기
+//void drawCrosshair() {
+//    glUseProgram(0); // 고정 함수 파이프라인 사용 (셰이더 사용 안 함)
+//    glColor3f(1.0f, 1.0f, 1.0f); // 흰색
+//    glBegin(GL_LINES);
+//    glVertex2f(0.0f, -1.0f);
+//    glVertex2f(0.0f, 1.0f);
+//    glVertex2f(-1.0f, 0.0f);
+//    glVertex2f(1.0f, 0.0f);
+//    glEnd();
+//}
+//
+//// 도형 그리기 함수
+//void drawShape(Shape shape, float size, float x, float y, float r, float g, float b) {
+//    glUseProgram(shaderProgram); // 셰이더 프로그램 사용
+//    glUniform3f(colorLocation, r, g, b); // 유니폼으로 색상 전달
+//
+//    switch (shape) {
+//    case LINE:
+//        glBegin(GL_LINES);
+//        glVertex2f(x - size, y);
+//        glVertex2f(x + size, y);
+//        glEnd();
+//        break;
+//    case TRIANGLE:
+//        glBegin(GL_TRIANGLES);
+//        glVertex2f(x, y + size);        // 꼭짓점 A
+//        glVertex2f(x - size, y - size); // 꼭짓점 B
+//        glVertex2f(x + size, y - size); // 꼭짓점 C
+//        glEnd();
+//        break;
+//    case RECTANGLE:
+//        glBegin(GL_QUADS);
+//        glVertex2f(x - size, y + size); // 왼쪽 위
+//        glVertex2f(x + size, y + size); // 오른쪽 위
+//        glVertex2f(x + size, y - size); // 오른쪽 아래
+//        glVertex2f(x - size, y - size); // 왼쪽 아래
+//        glEnd();
+//        break;
+//    case PENTAGON:
+//        glBegin(GL_POLYGON);
+//        for (int i = 0; i < 5; i++) {
+//            float angle = 2.0f * 3.1415926f * float(i) / 5.0f; // 각도 계산
+//            glVertex2f(x + size * cos(angle), y + size * sin(angle)); // 오각형 그리기
+//        }
+//        glEnd();
+//        break;
+//    }
+//}
+//
+//// 사분면에 도형 그리기
+//void drawShapesInQuadrants() {
+//    // 각 사분면에 개별 도형 그리기 (크기도 개별적으로 적용)
+//    drawShape(shapes[0], shapeSizes[0], 0.5f, 0.5f, 1.0f, 0.0f, 0.0f);  // 1사분면: 빨간색
+//    drawShape(shapes[1], shapeSizes[1], -0.5f, 0.5f, 0.0f, 1.0f, 0.0f); // 2사분면: 초록색
+//    drawShape(shapes[2], shapeSizes[2], -0.5f, -0.5f, 0.0f, 0.0f, 1.0f); // 3사분면: 파란색
+//    drawShape(shapes[3], shapeSizes[3], 0.5f, -0.5f, 1.0f, 1.0f, 0.0f);  // 4사분면: 노란색
+//}
+//
+//// 키 입력 처리
+//void handleKeypress(unsigned char key, int x, int y) {
+//    for (int i = 0; i < 4; i++) {
+//        switch (key) {
+//        case 'l':
+//            if (shapes[i] == LINE) {
+//                shapes[i] = TRIANGLE; // 선이면 삼각형으로 변환
+//                shapeSizes[i] = 0.05f; // 크기를 초기화
+//                animating[i] = true; // 변환 시 애니메이션 활성화
+//            }
+//            break;
+//        case 't':
+//            if (shapes[i] == TRIANGLE) {
+//                shapes[i] = RECTANGLE; // 삼각형이면 사각형으로 변환
+//                shapeSizes[i] = 0.05f; // 크기를 초기화
+//                animating[i] = true; // 변환 시 애니메이션 활성화
+//            }
+//            break;
+//        case 'r':
+//            if (shapes[i] == RECTANGLE) {
+//                shapes[i] = PENTAGON; // 사각형이면 오각형으로 변환
+//                shapeSizes[i] = 0.05f; // 크기를 초기화
+//                animating[i] = true; // 변환 시 애니메이션 활성화
+//            }
+//            break;
+//        case 'p':
+//            if (shapes[i] == PENTAGON) {
+//                shapes[i] = LINE; // 오각형이면 선으로 변환
+//                shapeSizes[i] = 0.05f; // 크기를 초기화
+//                animating[i] = true; // 변환 시 애니메이션 활성화
+//            }
+//            break;
+//        case 'a':
+//            // 전체 도형을 초기 상태로 리셋
+//            shapes[0] = LINE;
+//            shapes[1] = TRIANGLE;
+//            shapes[2] = RECTANGLE;
+//            shapes[3] = PENTAGON;
+//            // 모든 크기를 초기 상태로 리셋
+//            for (int j = 0; j < 4; j++) {
+//                shapeSizes[j] = 0.1f; // 초기 크기
+//                animating[j] = false; // 애니메이션 중지
+//            }
+//            break;
+//        }
+//    }
+//}
+//
+//// 애니메이션 업데이트 함수
+//void updateAnimation() {
+//    for (int i = 0; i < 4; i++) {
+//        if (animating[i]) {
+//            shapeSizes[i] += animSpeeds[i]; // 크기 증가
+//            if (shapeSizes[i] >= targetSize) {
+//                shapeSizes[i] = targetSize; // 목표 크기 도달 시 멈춤
+//                animating[i] = false; // 애니메이션 상태를 false로 설정
+//            }
+//        }
+//    }
+//    glutPostRedisplay(); // 화면 갱신
+//}
+//
+//// 화면 그리기
+//void display() {
+//    glClear(GL_COLOR_BUFFER_BIT);
+//    drawCrosshair();
+//    drawShapesInQuadrants();
+//    glutSwapBuffers();
+//}
+//
+//int main(int argc, char** argv) {
+//    glutInit(&argc, argv);
+//    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
+//    glutInitWindowSize(800, 600);
+//    glutCreateWindow("Shapes in Quadrants");
+//
+//    glewInit();
+//    initShaders();
+//
+//    glutDisplayFunc(display);
+//    glutIdleFunc(updateAnimation); // 애니메이션 업데이트
+//    glutKeyboardFunc(handleKeypress); // 키 입력 처리
+//    glutMainLoop();
+//    return 0;
+//}
