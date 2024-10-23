@@ -40,24 +40,26 @@ void main()
 const char* vertexShaderAxes = R"(
 #version 330 core
 layout(location = 0) in vec3 aPose;
+layout(location = 1) in vec3 aColor;
 
 uniform mat4 MVP;
+out vec3 vertexColor;
 
 void main()
 {
     gl_Position = MVP * vec4(aPose, 1.0);
+    vertexColor = aColor;
 }
 )";
 
 const char* fragmentShaderAxes = R"(
 #version 330 core
+in vec3 vertexColor
 out vec4 FragColor;
-
-uniform vec3 axisColor;
 
 void main()
 {
-    FragColor = vec4(axisColor, 1.0);
+    FragColor = vec4(vertexColor, 1.0);
 }
 )";
 
@@ -147,6 +149,37 @@ void initShaders() {
 
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
+
+    GLuint vertexShaderA = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vertexShaderA, 1, &vertexShaderAxes, nullptr);
+    glCompileShader(vertexShaderA);
+
+    GLuint fragmentShaderA = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragmentShaderA, 1, &fragmentShaderAxes, nullptr);
+    glCompileShader(fragmentShaderA);
+
+    axesShader = glCreateProgram();
+    glAttachShader(axesShader, vertexShaderA);
+    glAttachShader(axesShader, fragmentShaderA);
+    glLinkProgram(axesShader);
+
+    glDeleteShader(vertexShader);
+    glDeleteShader(fragmentShader);
+    glDeleteShader(vertexShaderA);
+    glDeleteShader(fragmentShaderA);
+}
+
+void initAxes() {
+    glGenVertexArrays(1, &axisVAO);
+    glGenBuffers(1, &axisVBO);
+
+    glBindVertexArray(axisVAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER,axisVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(axisVertices),axisVertices, GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+    glEnableVertexAttribArray(0);
 }
 
 void initCube() {
@@ -286,8 +319,29 @@ void drawTetrahedron() {
     glBindVertexArray(0);
 }
 
+void drawAxes() {
+    glUseProgram(axesShader);
+
+    glm::mat4 MVP = glm::mat4(1.0f);
+
+    GLuint MVPLoc = glGetUniformLocation(axesShader, "MVP");
+    glUniformMatrix4fv(MVPLoc, 1, GL_FALSE, glm::value_ptr(MVP));
+
+    glUniform3f(glGetUniformLocation(axesShader, "vertexColor"), 1.0f, 0.0f, 0.0f);
+    glBindVertexArray(axisVAO);
+    glDrawArrays(GL_LINES, 0, 2);
+
+    glUniform3f(glGetUniformLocation(axesShader, "vertexColor"), 0.0f, 1.0f, 0.0f);
+    glDrawArrays(GL_LINES, 2, 2);
+
+    glUniform3f(glGetUniformLocation(axesShader, "vertexColor"), 0.0f, 0.0f, 1.0f);
+    glDrawArrays(GL_LINES, 4, 2);
+
+    glBindVertexArray(0);
+}
 void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    drawAxes();
     if (drawCubeFace){
         drawCube();
     }
@@ -360,7 +414,7 @@ void handleKeypress(unsigned char key, int x, int y) {
 
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
     glutInitWindowSize(800, 600);
     glutCreateWindow("3D");
 
@@ -368,11 +422,9 @@ int main(int argc, char** argv) {
     initShaders();
     initCube();
     initTetrahedron();
-    
-    glEnable(GL_DEPTH_TEST); // Enable depth testing
 
     glutDisplayFunc(display);
-    glutIdleFunc(display); // Continuously update the display
+    glutIdleFunc(display);
     glutKeyboardFunc(handleKeypress);
     glutMainLoop();
     return 0;
