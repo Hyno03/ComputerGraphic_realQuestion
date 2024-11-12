@@ -43,14 +43,14 @@
 //
 //std::vector<GLfloat> axisVertices = {
 //    // Positions             // Colors (RGB)
-//    -1.0f, 0.0f, 0.0f,       1.0f, 0.0f, 0.0f, // X-axis (Red)
-//    1.0f, 0.0f, 0.0f,       1.0f, 0.0f, 0.0f, // X-axis end point
+//    -2.0f, 0.0f, 0.0f,       1.0f, 0.0f, 0.0f, // X-axis (Red)
+//    5.0f, 0.0f, 0.0f,       1.0f, 0.0f, 0.0f, // X-axis end point
 //
-//    0.0f, -1.0f, 0.0f,       0.0f, 1.0f, 0.0f, // Y-axis (Green)
-//    0.0f, 1.0f, 0.0f,       0.0f, 1.0f, 0.0f, // Y-axis end point
+//    0.0f, -2.0f, 0.0f,       0.0f, 1.0f, 0.0f, // Y-axis (Green)
+//    0.0f, 2.0f, 0.0f,       0.0f, 1.0f, 0.0f, // Y-axis end point
 //
-//    0.0f, 0.0f, -1.0f,       0.0f, 0.0f, 1.0f, // Z-axis (Blue)
-//    0.0f, 0.0f, 1.0f,       0.0f, 0.0f, 1.0f  // Z-axis end point
+//    0.0f, 0.0f, -5.0f,       0.0f, 0.0f, 1.0f, // Z-axis (Blue)
+//    0.0f, 0.0f, 2.0f,       0.0f, 0.0f, 1.0f  // Z-axis end point
 //};
 //
 //// Cube vertices and colors
@@ -75,53 +75,10 @@
 //    1, 2, 6, 6, 5, 1  // right face
 //};
 //
-//std::vector<GLfloat> pyramidVertices = {
-//    // Positions          // Colors
-//    0.0f,  0.5f,  0.0f,  1.0f, 0.0f, 0.0f, // Top vertex (red)
-//   -0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f, // Front-left (green)
-//    0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 1.0f, // Front-right (blue)
-//    0.5f, -0.5f,  0.5f,  1.0f, 1.0f, 0.0f, // Back-right (yellow)
-//   -0.5f, -0.5f,  0.5f,  0.0f, 1.0f, 1.0f  // Back-left (cyan)
-//};
-//
-//std::vector<GLuint> pyramidIndices = {
-//    0, 1, 2, // Front face
-//    0, 2, 3, // Right face
-//    0, 3, 4, // Back face
-//    0, 4, 1, // Left face
-//    1, 2, 3, 3, 4, 1  // Base (two triangles)
-//};
-//
-//const int coneSlices = 20;
-//std::vector<GLfloat> coneVertices;
-//std::vector<GLuint> coneIndices;
-//
 //const int sphereSlices = 20;
 //const int sphereStacks = 20;
 //std::vector<GLfloat> sphereVertices;
 //std::vector<GLuint> sphereIndices;
-//
-//void initCone() {
-//    // Base of the cone (circle)
-//    for (int i = 0; i < coneSlices; ++i) {
-//        float angle = 2.0f * M_PI * i / coneSlices;
-//        coneVertices.push_back(cos(angle) * 0.5f); // x
-//        coneVertices.push_back(0.0f);              // y
-//        coneVertices.push_back(sin(angle) * 0.5f); // z
-//    }
-//
-//    // Apex of the cone
-//    coneVertices.push_back(0.0f); // x
-//    coneVertices.push_back(1.0f); // y (height of the cone)
-//    coneVertices.push_back(0.0f); // z
-//
-//    // Creating indices
-//    for (int i = 0; i < coneSlices; ++i) {
-//        coneIndices.push_back(i);
-//        coneIndices.push_back((i + 1) % coneSlices);
-//        coneIndices.push_back(coneSlices);
-//    }
-//}
 //
 //void initSphere() {
 //    for (int i = 0; i <= sphereStacks; ++i) {
@@ -154,11 +111,7 @@
 //    }
 //}
 //
-//
-//GLuint coneVAO, coneVBO, coneEBO;
 //GLuint cubeVAO, cubeVBO, cubeEBO;
-//
-//GLuint pyramidVAO, pyramidVBO, pyramidEBO;
 //GLuint sphereVAO, sphereVBO, sphereEBO;
 //GLuint axisVAO, axisVBO;
 //
@@ -185,8 +138,6 @@
 //int rotationDirection = 0;
 //float rotationAngleX = 0.0f;
 //float rotationAngleY = 0.0f;
-//float coneX = -1.0f, cubeX = 1.0f;
-//bool isPyramid = false;
 //
 //void initShaders() {
 //    // Create vertex shader
@@ -235,52 +186,6 @@
 //    glBindVertexArray(0);
 //}
 //
-//void initConeBuffers() {
-//    glGenVertexArrays(1, &coneVAO);
-//    glGenBuffers(1, &coneVBO);
-//    glGenBuffers(1, &coneEBO);
-//
-//    glBindVertexArray(coneVAO);
-//
-//    glBindBuffer(GL_ARRAY_BUFFER, coneVBO);
-//    glBufferData(GL_ARRAY_BUFFER, coneVertices.size() * sizeof(GLfloat), coneVertices.data(), GL_STATIC_DRAW);
-//
-//    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, coneEBO);
-//    glBufferData(GL_ELEMENT_ARRAY_BUFFER, coneIndices.size() * sizeof(GLuint), coneIndices.data(), GL_STATIC_DRAW);
-//
-//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
-//    glEnableVertexAttribArray(0);
-//
-//    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-//    glEnableVertexAttribArray(1);
-//
-//    glBindBuffer(GL_ARRAY_BUFFER, 0);
-//    glBindVertexArray(0);
-//}
-//
-//void initPyramidBuffers() {
-//    glGenVertexArrays(1, &pyramidVAO);
-//    glGenBuffers(1, &pyramidVBO);
-//    glGenBuffers(1, &pyramidEBO);
-//
-//    glBindVertexArray(pyramidVAO);
-//
-//    glBindBuffer(GL_ARRAY_BUFFER, pyramidVBO);
-//    glBufferData(GL_ARRAY_BUFFER, pyramidVertices.size() * sizeof(GLfloat), pyramidVertices.data(), GL_STATIC_DRAW);
-//
-//    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, pyramidEBO);
-//    glBufferData(GL_ELEMENT_ARRAY_BUFFER, pyramidIndices.size() * sizeof(GLuint), pyramidIndices.data(), GL_STATIC_DRAW);
-//
-//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
-//    glEnableVertexAttribArray(0);
-//
-//    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-//    glEnableVertexAttribArray(1);
-//
-//    glBindBuffer(GL_ARRAY_BUFFER, 0);
-//    glBindVertexArray(0);
-//}
-//
 //void initSphereBuffers() {
 //    glGenVertexArrays(1, &sphereVAO);
 //    glGenBuffers(1, &sphereVBO);
@@ -304,16 +209,16 @@
 //    glBindVertexArray(0);
 //}
 //
+//glm::vec3 cubePosition = glm::vec3(-1.0f, 0.2f, -2.0f);
+//glm::vec3 spherePosition = glm::vec3(0.8f, 0.5f, 0.5f);
+//glm::vec3 targetPosition = spherePosition;
+//float interpolationSpeed = 0.05f;
+//
 //void drawCube() {
 //    glUseProgram(shaderProgram);
 //
 //    glm::mat4 model = glm::mat4(1.0f);
-//    model = glm::rotate(model, glm::radians(rotationAngleX), glm::vec3(1.0f, 0.0f, 0.0f));
-//    if (rotationDirection == 3 || rotationDirection == -3) {
-//        model = glm::rotate(model, glm::radians(rotationAngleY), glm::vec3(0.0f, 1.0f, 0.0f));
-//    }
-//    model = glm::translate(model, glm::vec3(cubeX, 0.0f, 0.0f));
-//    model = glm::rotate(model, glm::radians(rotationAngleY), glm::vec3(0.0f, 1.0f, 0.0f));
+//    model = glm::translate(model, glm::vec3(-1.0f, 0.2f, -2.0f));
 //    model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
 //
 //    GLuint modelLoc = glGetUniformLocation(shaderProgram, "modelTransform");
@@ -326,39 +231,11 @@
 //    glBindVertexArray(0);
 //}
 //
-//void drawCone() {
-//    glUseProgram(shaderProgram);
-//
-//    glm::mat4 model = glm::mat4(1.0f);
-//    model = glm::rotate(model, glm::radians(rotationAngleX), glm::vec3(1.0f, 0.0f, 0.0f));
-//    if (rotationDirection == 3 || rotationDirection == -3) {
-//        model = glm::rotate(model, glm::radians(rotationAngleY), glm::vec3(0.0f, 1.0f, 0.0f));
-//    }
-//    model = glm::translate(model, glm::vec3(coneX, 0.0f, 0.0f));
-//    model = glm::rotate(model, glm::radians(rotationAngleY), glm::vec3(0.0f, 1.0f, 0.0f));
-//    model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-//
-//
-//    GLuint modelLoc = glGetUniformLocation(shaderProgram, "modelTransform");
-//    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-//
-//    glBindVertexArray(coneVAO); 
-//    glDrawElements(GL_TRIANGLES, coneIndices.size(), GL_UNSIGNED_INT, 0);
-//
-//    
-//    glBindVertexArray(0);
-//}
-//
 //void drawSphere() {
 //    glUseProgram(shaderProgram);
 //
 //    glm::mat4 model = glm::mat4(1.0f);
-//    model = glm::rotate(model, glm::radians(rotationAngleX), glm::vec3(1.0f, 0.0f, 0.0f));
-//    if (rotationDirection == 3 || rotationDirection == -3) {
-//        model = glm::rotate(model, glm::radians(rotationAngleY), glm::vec3(0.0f, 1.0f, 0.0f));
-//    }
-//    model = glm::translate(model, glm::vec3(cubeX, 0.0f, 0.0f));
-//    model = glm::rotate(model, glm::radians(rotationAngleY), glm::vec3(0.0f, 1.0f, 0.0f));
+//    model = glm::translate(model, glm::vec3(0.8f, -0.2f, 0.0f));
 //    model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
 //
 //
@@ -372,30 +249,6 @@
 //    glBindVertexArray(0);
 //}
 //
-//void drawPyramid() {
-//    glUseProgram(shaderProgram);
-//
-//    glm::mat4 model = glm::mat4(1.0f);
-//    model = glm::rotate(model, glm::radians(rotationAngleX), glm::vec3(1.0f, 0.0f, 0.0f));
-//    if (rotationDirection == 3 || rotationDirection == -3) {
-//        model = glm::rotate(model, glm::radians(rotationAngleY), glm::vec3(0.0f, 1.0f, 0.0f));
-//    }
-//    model = glm::translate(model, glm::vec3(coneX, 0.0f, 0.0f));
-//    model = glm::rotate(model, glm::radians(rotationAngleY), glm::vec3(0.0f, 1.0f, 0.0f));
-//    model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-//
-//
-//    GLuint modelLoc = glGetUniformLocation(shaderProgram, "modelTransform");
-//    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-//
-//    glBindVertexArray(pyramidVAO);
-//    glDrawElements(GL_TRIANGLES, pyramidIndices.size(), GL_UNSIGNED_INT, 0);
-//
-//
-//    glBindVertexArray(0);
-//}
-//
-//// Draw axes without transformations
 //void drawAxes() {
 //    glUseProgram(shaderProgram);
 //
@@ -424,7 +277,6 @@
 //    glBindVertexArray(0);
 //}
 //
-//// Update the display function
 //void display() {
 //    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 //    glEnable(GL_DEPTH_TEST);
@@ -450,44 +302,18 @@
 //
 //    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 //
-//    if (isPyramid) {
-//        drawSphere();
-//        drawPyramid();
-//    }
-//    else {
-//        drawCube();
-//        drawCone();
-//    }
+//    drawSphere();
+//    drawCube();
 //
 //    glutSwapBuffers();
 //}
 //
-//void updateAnimation() {
-//    const float rotationSpeed = 1.0f; // 초당 1도 회전
-//   
-//    if (rotationDirection == 1) {
-//        rotationAngleX += rotationSpeed;
+//void updateSpherePosition() {
+//    // If the sphere hasn't reached the target position, move it closer to the target
+//    if (glm::distance(spherePosition, targetPosition) > 0.01f) {
+//        spherePosition = glm::mix(spherePosition, targetPosition, interpolationSpeed);
+//        glutPostRedisplay(); // Request a redraw
 //    }
-//    else if (rotationDirection == -1) {
-//        rotationAngleX -= rotationSpeed;
-//    }
-//    else if (rotationDirection == 2) {
-//        rotationAngleY += rotationSpeed;
-//    }
-//    else if (rotationDirection == -2) {
-//        rotationAngleY -= rotationSpeed;
-//    }
-//    else if (rotationDirection == 3) {
-//        rotationAngleY += rotationSpeed;
-//    }
-//    else if (rotationDirection == -3) {
-//        rotationAngleY -= rotationSpeed;
-//    }
-//
-//    rotationAngleX = fmod(rotationAngleX, 360.0f);
-//
-//
-//    glutPostRedisplay();
 //}
 //
 //// Initialization function
@@ -495,45 +321,22 @@
 //    glEnable(GL_DEPTH_TEST);
 //    initShaders();
 //    initCube();
-//    initCone();
 //    initSphere();
-//    initPyramidBuffers();
 //    initSphereBuffers();
-//    initConeBuffers();
-//    initCone();
 //}
 //
 //void handleKeypress(unsigned char key, int x, int y) {
-//    const float translationSpeed = 0.1f;
-//    
 //    switch (key) {
-//    case 'x':
-//        rotationDirection = 1;
+//    case '1':
 //        break;
-//    case 'X':
-//        rotationDirection = -1;
+//    case '2':
+//        targetPosition = cubePosition;
 //        break;
-//    case 'y':
-//        rotationDirection = 2;
+//    case '3':
 //        break;
-//    case 'Y':
-//        rotationDirection = -2;
+//    case '4':
 //        break;
-//    case 'r':
-//        rotationDirection = 3;
-//        break;
-//    case 'R':
-//        rotationDirection = -3;
-//        break;
-//    case 'c':
-//        isPyramid = !isPyramid;
-//        break;
-//    case 's':
-//        rotationAngleX = 0.0f;
-//        rotationAngleY = 0.0f;
-//        rotationDirection = 0;
-//        coneX = -1.0f;
-//        cubeX = 1.0f;
+//    case '5':
 //        break;
 //    default:
 //        break;
@@ -550,14 +353,10 @@
 //
 //    glewInit();
 //    init();
-//
 //    initAxis();
-//
-//    init();
 //    glutDisplayFunc(display);
-//    glutIdleFunc(display);
-//    glutIdleFunc(updateAnimation);
 //    glutKeyboardFunc(handleKeypress);
+//    glutIdleFunc(updateSpherePosition);
 //    glutMainLoop();
 //    return 0;
 //}
